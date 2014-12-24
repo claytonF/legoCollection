@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html data-ng-app="verbsApp">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+ 
+        <script src="js/libs/modernizr.min.js"></script>
+        
+
+    </head>
+    <body>
+        <script src="js/libs/jquery.min.js"></script>
+        <script src="js/libs/angular.js"></script>
+        <script src="js/libs/angular-animate.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/main-ng.js"></script>
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header class="nav-bar">
+            <h1>VerbLearner</h1>
+        </header> 
+        
+        <div data-ng-controller="PostsController">
+            <div data-ng-repeat="verb in passedData" ng-show="showVerb" ng-class="'animate'">
+
+                <div class="verb">
+                   <article class="verb-face verb-front">
+                        <header>
+                            <h1>{{verb.name.pt}}</h1>
+                            <h2>(to {{verb.name.en}})</h2>
+                            <h3>{{verb.tense.name}}</h3>
+                        </header>
+                        <section class="conjugation">
+                           <ul >
+                            
+                                <li data-ng-repeat="conjugation in verb.tense.conjugation"><span class="conj-form">{{conjugation.formPt}}:</span><span class="conj-value"> {{conjugation.value}}</span><a href="{{conjugation.audio.url}}"><img src="images/speaker_icon.svg" class="speaker" /></a></li>
+                            
+                            </ul>
+                            
+                        </section>
+                        <footer>
+                            <a href="#" class="flipper">take test(flip card)</a>
+                        </footer>
+                    </article>
+                    <article class="verb-face verb-back">
+                    <header>
+                        <h1>{{verb.name.pt}}</h1>
+                        <h2>(to {{verb.name.en}})</h2>
+                        <h3>{{verb.tense.name}}</h3>
+                    </header>
+                    <section class="timer"></section>
+                    <section class="conjugation">
+                        <ul>
+                            <li data-ng-repeat="conjugation in verb.tense.conjugation"><span class="conj-form">{{conjugation.formPt}}</span> <input id="{{conjugation.name.pt}}{{conjugation.formPt}}" /></li>
+                        </ul>
+                        </ul>
+                    </section>
+                    <footer>
+                        <a href="#" class="flipped">Get the results</a>
+                    </footer>
+
+                </article>
+                    
+                </div>
+            </div>
+        </div>
+    
+        
+
+    </body>
+</html>
