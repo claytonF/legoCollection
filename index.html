@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="verbsApp">
+<html data-ng-app="legoApp">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -13,73 +13,65 @@
         <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="vendor/node_modules/normalize.css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
  
         <script src="js/libs/modernizr.min.js"></script>
-        
+       <script src="js/libs/jquery.min.js"></script>
 
     </head>
-    <body>
-        <script src="js/libs/jquery.min.js"></script>
+
         <script src="js/libs/angular.js"></script>
-        <script src="js/libs/angular-animate.js"></script>
         <script src="js/app.js"></script>
-        <script src="js/main-ng.js"></script>
+        <body data-ng-controller="setController as setCtrl" class="container-fluid">
+
+        
+        
+       
         <!--[if lt IE 8]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <header class="nav-bar">
-            <h1>VerbLearner</h1>
-        </header> 
-        
-        <div data-ng-controller="PostsController">
-            <div data-ng-repeat="verb in passedData" ng-show="showVerb" ng-class="'animate'">
-
-                <div class="verb">
-                   <article class="verb-face verb-front">
-                        <header>
-                            <h1>{{verb.name.pt}}</h1>
-                            <h2>(to {{verb.name.en}})</h2>
-                            <h3>{{verb.tense.name}}</h3>
-                        </header>
-                        <section class="conjugation">
-                           <ul >
-                            
-                                <li data-ng-repeat="conjugation in verb.tense.conjugation"><span class="conj-form">{{conjugation.formPt}}:</span><span class="conj-value"> {{conjugation.value}}</span><a href="{{conjugation.audio.url}}"><img src="images/speaker_icon.svg" class="speaker" /></a></li>
-                            
-                            </ul>
-                            
-                        </section>
-                        <footer>
-                            <a href="#" class="flipper">take test(flip card)</a>
-                        </footer>
-                    </article>
-                    <article class="verb-face verb-back">
-                    <header>
-                        <h1>{{verb.name.pt}}</h1>
-                        <h2>(to {{verb.name.en}})</h2>
-                        <h3>{{verb.tense.name}}</h3>
-                    </header>
-                    <section class="timer"></section>
-                    <section class="conjugation">
-                        <ul>
-                            <li data-ng-repeat="conjugation in verb.tense.conjugation"><span class="conj-form">{{conjugation.formPt}}</span> <input id="{{conjugation.name.pt}}{{conjugation.formPt}}" /></li>
-                        </ul>
-                        </ul>
+        <nav class="nav">
+            <form class="navbar-form"  data-ng-submit="setCtrl.idSearch()" role="search">
+                <input type="text" class="form-control" placeholder="" data-ng-model="newIdSearch"  />
+                <button type="submit" class="btn btn-primary">Search</button>
+                <button id="filter-toggle" class="btn btn-primary">Filter</button>
+            </form>
+        </nav>
+        <section id="filters" class="col-md-12">
+            <form id="filters-form" class="thumbnail">
+                Year | 
+                Theme | 
+                SubTheme | 
+                Piece count
+            </form>
+        </section>
+        <section id="sets" >
+            
+            <article class="set col-md-4 col-sm-6 " data-ng-repeat="sets in setCtrl.legoSets | filter:searchSets" >
+                <div class="thumbnail">
+                    <a href="http://brickset.com/sets/{{ sets.model }}-{{sets.bricksetVersion}}" ><img src="http://www.1000steine.com/brickset/images/{{sets.model}}-{{sets.bricksetVersion}}.jpg" width="300px" /></a>
+                    <section class="caption">
+                        <h2>{{ sets.description }}</h2>
+                        <p>
+                            <small>Model: <strong>{{ sets.model }}</strong> |</small>
+                            <small>Released: <strong>{{sets.releaseYear}}</strong>  |</small>
+                            <small>Set type: <strong>{{sets.theme}}</strong> </small>
+                        </p>
+                        
+                            <a href="http://brickset.com/sets/{{ sets.model }}-{{sets.bricksetVersion}}" class="btn btn-default" >Further details</a>
+                        
                     </section>
-                    <footer>
-                        <a href="#" class="flipped">Get the results</a>
-                    </footer>
-
-                </article>
-                    
                 </div>
-            </div>
-        </div>
-    
-        
+            </article>
+        </section>
 
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/libs/masonry.pkgd.min.js"></script>
+    <script src="js/masonry-controller.js"></script>  
+    <script src="js/DOM-controllers.js"></script> 
     </body>
 </html>
